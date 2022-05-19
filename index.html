@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Range - Slider</title>
+</head>
+<body>
+    <div class="app">
+        <div class="container">
+            <h3 class="heading">Custom Range Slider</h3>
+            <div class="range">
+                <div class="slider">
+                    <span>40%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let appE = document.querySelector('.app')
+        let rangeE = document.querySelector('.range')
+        let sliderE = document.querySelector('.slider')
+        let pressMouse = false;
+        
+        appE.addEventListener('mouseup', function(e){
+            pressMouse = false;
+        })
+        rangeE.addEventListener('mousedown', function(e){
+            pressMouse = true;
+        })
+
+        rangeE.addEventListener('mouseup', function(e){
+            pressMouse = false;
+        })
+
+        rangeE.addEventListener('mousemove', function(e){
+            if(pressMouse){
+                rangeE.setAttribute('style','cursor: grab')
+                width = (e.pageX) - (this.offsetLeft-1)
+                sliderE.setAttribute('style', 'width:' + width + 'px')
+                let percent = Math.round((width*100) / this.offsetWidth)
+                let spanE = sliderE.querySelector('span')
+                spanE.innerText = percent + '%'
+                let bright = Math.round(( 255*percent) / 100)
+                appE.setAttribute('style', 'background-color:rgb('+ bright + ',' + bright+','+bright+')')
+            } else{
+                rangeE.setAttribute('style','cursor: pointer')
+            }
+        })
+        rangeE.addEventListener('click', function(e){
+                width = (e.pageX) - (this.offsetLeft-1)
+                sliderE.setAttribute('style', 'width:' + width + 'px')
+                let percent = Math.round((width*100) / this.offsetWidth)
+                let spanE = sliderE.querySelector('span')
+                spanE.innerText = percent + '%'
+                let bright = Math.round(( 255*percent) / 100)
+                appE.setAttribute('style', 'background-color:rgb('+ bright + ',' + bright+','+bright+')')
+        })
+        
+
+
+
+    </script>
+</body>
+</html>
